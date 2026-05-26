@@ -15,8 +15,8 @@ FAIL_COUNT=0
 
 while true; do
     if "$DOCKER_CMD" run --rm \
-        -v "$GH_CONFIG:/home/dev/.config/gh:ro" \
-        -e HOME=/home/dev \
+        -v "$GH_CONFIG:/root/.config/gh:ro" \
+        -e HOME=/root \
         "$IMAGE" \
         "timeout 20 gh issue view $ISSUE --repo $REPO >/dev/null 2>&1"; then
         FAIL_COUNT=0

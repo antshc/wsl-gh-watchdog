@@ -84,12 +84,12 @@ sudo systemctl start docker-github-watchdog
 
 ## Configuration
 
-All settings are controlled by environment variables. The defaults work out of the box if your `gh` config lives at `/home/dev/.config/gh`.
+All settings are controlled by environment variables. The defaults work out of the box if your `gh` config lives at `~/.config/gh`.
 
 | Variable | Default | Description |
 |---|---|---|
 | `IMAGE` | `antshc/watchdog-gh:latest` | Probe container image |
-| `GH_CONFIG` | `/home/dev/.config/gh` | Host path to `gh` config, mounted read-only into the probe container |
+| `GH_CONFIG` | `/home/dev/.config/gh` | Host path to `gh` config, mounted read-only into the probe container at `/root/.config/gh` |
 | `REPO` | `antshc/brain` | GitHub repo used for the connectivity probe |
 | `ISSUE` | `1` | Issue number passed to `gh issue view` |
 | `LOG_FILE` | `/var/log/docker-github-watchdog.log` | Path to the watchdog log file |

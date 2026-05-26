@@ -15,10 +15,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Create non-root user dev with uid 1000
-RUN useradd -m -u 1000 -s /bin/bash dev
-
-USER dev
-WORKDIR /home/dev
+WORKDIR /root
 
 ENTRYPOINT ["bash", "-lc"]
