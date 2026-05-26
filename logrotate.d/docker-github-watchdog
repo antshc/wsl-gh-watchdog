@@ -1,0 +1,8 @@
+/var/log/docker-github-watchdog.log {
+    weekly
+    rotate 4
+    compress
+    missingok
+    notifempty
+    copytruncate
+}

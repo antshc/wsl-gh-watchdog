@@ -1,0 +1,20 @@
+[Unit]
+Description=Docker GitHub Connectivity Watchdog
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/docker-github-watchdog.sh
+Restart=always
+RestartSec=10
+Environment=IMAGE=antshc/watchdog-gh:latest
+Environment=GH_CONFIG=/home/dev/.config/gh
+Environment=REPO=antshc/brain
+Environment=ISSUE=1
+Environment=LOG_FILE=/var/log/docker-github-watchdog.log
+Environment=FAIL_LIMIT=3
+Environment=SLEEP_SECONDS=60
+
+[Install]
+WantedBy=multi-user.target
