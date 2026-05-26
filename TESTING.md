@@ -2,7 +2,7 @@
 
 ## Probe Smoke Test
 
-Verifies that the probe Docker image is correctly built, runs as a non-root user,
+Verifies that the probe Docker image is correctly built, runs as root,
 mounts the host GitHub CLI config read-only, and successfully executes `gh issue view`.
 
 ### Prerequisites
@@ -19,20 +19,20 @@ mounts the host GitHub CLI config read-only, and successfully executes `gh issue
    docker build -t antshc/watchdog-gh:latest .
    ```
 
-2. **Verify the image runs as uid 1000:**
+2. **Verify the image runs as root:**
 
    ```bash
    docker run --rm antshc/watchdog-gh:latest 'id'
    ```
 
-   Expected output contains `uid=1000(dev)`.
+   Expected output contains `uid=0(root)`.
 
 3. **Run the probe with a real `gh issue view` call:**
 
    ```bash
    docker run --rm \
-     -v /home/dev/.config/gh:/home/dev/.config/gh:ro \
-     -e HOME=/home/dev \
+     -v ~/.config/gh:/root/.config/gh:ro \
+     -e HOME=/root \
      antshc/watchdog-gh:latest \
      'timeout 20 gh issue view 1 --repo antshc/brain >/dev/null'
    ```
@@ -49,7 +49,7 @@ mounts the host GitHub CLI config read-only, and successfully executes `gh issue
 
 ### Pass Criteria
 
-- Step 2 output shows `uid=1000(dev)` — container runs as non-root.
+- Step 2 output shows `uid=0(root)` — container runs as root.
 - Step 3 exits with code `0` — probe successfully authenticated and retrieved the issue.
 - No `gh: command not found` or authentication errors.
 
