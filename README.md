@@ -14,6 +14,14 @@ probe container → success → reset counter → sleep
                           → counter >= FAIL_LIMIT → restart Docker → reset counter → sleep
 ```
 
+## Quick Install
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antshc/wsl-gh-watchdog/main/install.sh | bash
+```
+
+The script checks prerequisites, pulls the probe image, installs all files, and starts the service in one step. Re-running it is safe — it is idempotent.
+
 ## Prerequisites
 
 ### WSL 2 with systemd enabled
